@@ -24,6 +24,7 @@ CORS(app)
 
 # 🔹 Configuration
 app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY")
+print("JWT SECRET KEY:", app.config['JWT_SECRET_KEY'])
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=1)
 
 jwt = JWTManager(app)
@@ -102,6 +103,9 @@ def login():
     password = data.get("password")
 
     user = users_collection.find_one({"username": username})
+    print("Login attempt:", username)
+    print("User found:", user)
+
     if not user or not check_password_hash(user["password"], password):
         return jsonify({"error": "Invalid credentials"}), 401
 
@@ -144,5 +148,6 @@ def predict():
         "trusted_source": google_result
     })
 
-if __name__ == "__main__":
-    app.run(debug=True)
+def handler(environ, start_response):
+    from werkzeug.middleware.dispatcher import DispatcherMiddleware
+    return DispatcherMiddleware(app)(environ, start_response)

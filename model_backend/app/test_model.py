@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = "http://127.0.0.1:5000"  # Change if hosted elsewhere
+BASE_URL = "https://fake-news-detection-website.vercel.app"  # Change if hosted elsewhere
 
 USERNAME = "testuser"
 PASSWORD = "testpassword"
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     register()
     token = login()
     if token:
-        sample_news = "Government announces new economic policy to support farmers."
+        sample_news = "Government announces & pm modi dead  new economic policy to support farmers."
         predict_news(token, sample_news)
     else:
         print("❌ Failed to get token. Check server logs or credentials.")
