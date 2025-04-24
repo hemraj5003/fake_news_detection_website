@@ -1,6 +1,6 @@
 import requests
 
-BASE_URL = "https://fake-news-detection-website.vercel.app"  # Change if hosted elsewhere
+BASE_URL = "http://127.0.0.1:5000"  # Change if hosted elsewhere
 
 USERNAME = "testuser"
 PASSWORD = "testpassword"

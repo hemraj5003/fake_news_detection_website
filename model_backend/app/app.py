@@ -36,18 +36,15 @@ db = mongo_client["newsApp"]
 users_collection = db["users"]
 predictions_collection = db["predictions"]
 
-# Model Paths (💡 RELATIVE)
-BASE_DIR = os.path.dirname(__file__)
-MODEL_PATH = os.path.join(BASE_DIR, "fake_news_model.pkl")
-VECTORIZER_PATH = os.path.join(BASE_DIR, "tfidf_vectorizer.pkl")
+# 🔹 Model Loading
+MODEL_PATH = r"C:\Users\ghanc\OneDrive\Desktop\New folder\model\News _dataset\Model\fake_news_model.pkl"
+VECTORIZER_PATH = r"C:\Users\ghanc\OneDrive\Desktop\New folder\model\News _dataset\Model\tfidf_vectorizer.pkl"
 
-# Load model/vectorizer
 try:
     model = joblib.load(MODEL_PATH)
     vectorizer = joblib.load(VECTORIZER_PATH)
-    print("✅ Model and vectorizer loaded.")
 except Exception as e:
-    logging.error(f"❌ Model load error: {e}")
+    logging.error(f"Error loading model: {e}")
     model, vectorizer = None, None
 
 # 🔹 Trusted News Sources
@@ -151,6 +148,5 @@ def predict():
         "trusted_source": google_result
     })
 
-def handler(environ, start_response):
-    from werkzeug.middleware.dispatcher import DispatcherMiddleware
-    return DispatcherMiddleware(app)(environ, start_response)
+if __name__ == "__main__":
+    app.run(debug=True)
